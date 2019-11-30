@@ -54,6 +54,24 @@ function _error() {
     cprint -r "`echo $STR`"
 }
 
+must_bins[${#must_bins[@]}]="git"
+must_bins[${#must_bins[@]}]="repo"
+
+function _check_env() {
+    local miss_bins=
+    for bin in ${must_bins[@]}
+    do
+        if ! command -v $bin >/dev/null 2>&1; then
+            miss_bins+="$bin,"
+        fi
+    done
+    miss_bins=$(echo $miss_bins | sed "s/,$//" | xargs)
+    if [ "xxx$miss_bins" != "xxx" ]; then
+        _error "$FUNCNAME no $miss_bins in env"
+        exit 1
+    fi
+}
+
 setup_tasks[${#setup_tasks[@]}]="do_setup_tools"
 setup_tasks[${#setup_tasks[@]}]="do_setup_vim"
 
@@ -96,6 +114,7 @@ function _setup_tasks() {
 }
 
 function main() {
+    _check_env
     _setup_tasks $@
 }
 
