@@ -1,9 +1,10 @@
-TARGETS := build_vim install_vim
+TARGETS := build_vim install_vim update_vim_plugin
 SRC_DIR := $(TOOLBOX_SRC_DIR)/vim
+PLUGIN_DIR := $(TOOLBOX_SRC_DIR)/vimplugin
 
 .PHONY: all $(TARGETS)
 
-all: install_vim
+all: install_vim install_vim_plugin
 
 build_vim:
 	$(q) cd $(SRC_DIR) && $(SRC_DIR)/configure \
@@ -31,3 +32,11 @@ build_vim:
 install_vim: build_vim
 	$(q) $(MAKE) -C $(SRC_DIR) VIMRUNTIMEDIR=$(TOOLBOX_INSTALL)/usr/share/vim/vim80
 	$(q) $(MAKE) -C $(SRC_DIR) install
+
+update_vim_plugin:
+	$(q) cd $(PLUGIN_DIR) && \
+		repo init -u git@github.com:wjxing/repo-VimBox.git --no-clone-bundle --depth=1 -b vim8 -m linux.xml &&
+		repo sync -c --no-clone-bundle --no-tags
+
+install_vim_plugin: update_vim_plugin
+	#$(q) ln -s $(PLUGIN_DIR) $(HOME)/.vim
