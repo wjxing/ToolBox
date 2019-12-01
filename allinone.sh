@@ -81,8 +81,11 @@ function _check_env() {
     fi
 }
 
+sub_tasks=
+
 function _check_param() {
-    local ARGS=$(getopt -o tuv --long setup_tools_only,update_repos_disable,setup_vim_only -- "$@")
+    local ARGS=$(getopt -o t::u:v --long setup_tools,update_repos,setup_vim -- "$@")
+    local setup_tools
     if [ $? != 0 ]; then
         c_error "$FUNCNAME getopt fail"
         exit 1
@@ -91,18 +94,30 @@ function _check_param() {
     while true
     do
         case "$1" in
-            -t|--setup_tools_only)
-                c_info "Setup tools only"
-                single_tasks[${#single_tasks[@]}]="do_setup_tools"
-                shift
+            -t|--setup_tools)
+                c_info "Setup tools"
+                case "$2" in
+                    "")
+                        shift 2
+                        ;;
+                    *)
+                        setup_tools=true
+                        sub_tasks="$(echo $sub_tasks $2 | xargs)"
+                        shift 2
+                        ;;
+                esac
                 ;;
-            -u|--update_repos_disable)
-                c_info "Update repos disable"
-                UPDATE_REPOS_DISABLE=true
-                shift
+            -u|--update_repos)
+                c_info "Update repos"
+                if [[ "xxx$2" != "xxxdisable" && "xxx$2" != "xxxonly" ]]; then
+                    c_error "Not support $2"
+                    exit 1
+                fi
+                UPDATE_REPOS_MOD=$2
+                shift 2
                 ;;
-            -v|--setup_vim_only)
-                c_info "Setup vim only"
+            -v|--setup_vim)
+                c_info "Setup vim"
                 single_tasks[${#single_tasks[@]}]="do_setup_vim"
                 shift
                 ;;
@@ -116,18 +131,25 @@ function _check_param() {
                 ;;
         esac
     done
+    if [ "xxx$setup_tools" == "xxxtrue" ]; then
+        single_tasks[${#single_tasks[@]}]="do_setup_tools"
+    fi
 }
 
-UPDATE_REPOS_DISABLE=false
+UPDATE_REPOS_MOD=
 
 function _update_repos() {
-    if [ "$UPDATE_REPOS_DISABLE" == "false" ]; then
+    if [ "xxx$UPDATE_REPOS_MOD" != "xxxdisable" ]; then
         mkdir -p $TOOLBOX_HOME/tools
         cd $TOOLBOX_HOME/tools && \
             (repo help manifest >/dev/null 2>&1 || \
                 repo init -u git@github.com:wjxing/repo-ToolBox.git --no-clone-bundle --depth=1 -m linux.xml) && \
             repo sync -c --no-clone-bundle --no-tags && \
             repo start --all matser
+        if [ "xxx$UPDATE_REPOS_MOD" == "xxxonly" ]; then
+            c_info "Update repos done"
+            exit
+        fi
     fi
 }
 
@@ -136,7 +158,14 @@ all_tasks[${#all_tasks[@]}]="do_setup_vim"
 
 function do_setup_tools() {
     c_info "$FUNCNAME start"
-    make -C $TOOLBOX_TOOLS -f setup/mak/setup_tools.mk
+    if [ "xxx$sub_tasks" == "xxx" ]; then
+        make -C $TOOLBOX_TOOLS -f setup/mak/setup_tools.mk
+    else
+        for t in $sub_tasks
+        do
+            make -C $TOOLBOX_TOOLS -f setup/mak/setup_tools.mk $t
+        done
+    fi
     c_info "$FUNCNAME end"
 }
 
