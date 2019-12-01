@@ -36,8 +36,8 @@ install_vim: build_vim
 update_vim_plugin:
 	$(q) mkdir -p $(PLUGIN_DIR)
 	$(q) cd $(PLUGIN_DIR) && \
-		repo init -u git@github.com:wjxing/repo-VimBox.git --no-clone-bundle --depth=1 -b vim8 -m linux.xml &&
-		repo sync -c --no-clone-bundle --no-tags &&
+		repo init -u git@github.com:wjxing/repo-VimBox.git --no-clone-bundle --depth=1 -b vim8 -m linux.xml && \
+		repo sync -c --no-clone-bundle --no-tags && \
 		repo start --all master
 
 install_vim_plugin: update_vim_plugin
