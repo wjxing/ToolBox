@@ -124,9 +124,9 @@ function _update_repos() {
     if [ "$UPDATE_REPOS_DISABLE" == "false" ]; then
         mkdir -p $TOOLBOX_HOME/tools
         cd $TOOLBOX_HOME/tools && \
-            (repo help manifest >/dev/null 2>&1 ||
-                repo init -u git@github.com:wjxing/repo-ToolBox.git --no-clone-bundle --depth=1 -m linux.xml) &&
-            repo sync -c --no-clone-bundle --no-tags &&
+            (repo help manifest >/dev/null 2>&1 || \
+                repo init -u git@github.com:wjxing/repo-ToolBox.git --no-clone-bundle --depth=1 -m linux.xml) && \
+            repo sync -c --no-clone-bundle --no-tags && \
             repo start --all matser
     fi
 }
