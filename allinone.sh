@@ -124,7 +124,8 @@ function _update_repos() {
     if [ "$UPDATE_REPOS_DISABLE" == "false" ]; then
         cd $TOOLBOX_HOME && \
             repo init -u git@github.com:wjxing/repo-ToolBox.git --no-clone-bundle --depth=1 -m linux.xml &&
-            repo sync -c --no-clone-bundle --no-tags
+            repo sync -c --no-clone-bundle --no-tags &&
+            repo start --all matser
     fi
 }
 
