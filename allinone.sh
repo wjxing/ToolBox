@@ -188,4 +188,5 @@ function main() {
 }
 
 trap 'exit 1' SIGINT
+set -e
 main $@
