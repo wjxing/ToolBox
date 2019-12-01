@@ -147,7 +147,7 @@ function do_setup_vim() {
 
 function _setup_tasks() {
     c_info "$FUNCNAME start"
-    TOOLBOX_HOME=$TOOLBOX_HOME source $TOOLBOX_TOOLS/setup/env.sh
+    TOOLBOX_HOME=$TOOLBOX_HOME source $TOOLBOX_HOME/tools/setup/env.sh
     local tmp_fifo="tmp.fifo.$$"
     local thread_num=3
     local tasks
