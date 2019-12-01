@@ -1,5 +1,58 @@
 #!/bin/bash
 
+function cprint() {
+    while (( $# != 0 ))
+    do
+        case $1 in
+        -B)
+            echo -ne "\033[30m";
+        ;;
+        -r)
+            echo -ne "\033[31m";
+        ;;
+        -g)
+            echo -ne "\033[32m";
+        ;;
+        -y)
+            echo -ne "\033[33m";
+        ;;
+        -b)
+            echo -ne "\033[34m";
+        ;;
+        -p)
+            echo -ne "\033[35m";
+        ;;
+        -c)
+            echo -ne "\033[36m";
+        ;;
+        -w)
+            echo -ne "\033[37m";
+        ;;
+        -h|-help|--help)
+            echo "Usage: cprint -color string";
+        ;;
+        *)
+            echo -e "$1\033[0m"
+        ;;
+        esac
+        shift
+    done
+}
+
+function c_info() {
+    STR="$@"
+    cprint -g "`echo $STR`"
+}
+
+function c_debug() {
+    STR="$@"
+    cprint -b "`echo $STR`"
+}
+
+function c_error() {
+    STR="$@"
+    cprint -r "`echo $STR`"
+}
 must_bins[${#must_bins[@]}]="git"
 must_bins[${#must_bins[@]}]="repo"
 must_bins[${#must_bins[@]}]="zsh"
@@ -26,7 +79,6 @@ function _check_env() {
     if [ ! -d $TOOLBOX_HOME ]; then
         mkdir -p $TOOLBOX_HOME
     fi
-    TOOLBOX_HOME=$TOOLBOX_HOME source $TOOLBOX_HOME/setup/env.sh
 }
 
 function _check_param() {
@@ -93,6 +145,7 @@ function do_setup_vim() {
 
 function _setup_tasks() {
     c_info "$FUNCNAME start"
+    TOOLBOX_HOME=$TOOLBOX_HOME source $TOOLBOX_HOME/setup/env.sh
     local tmp_fifo="tmp.fifo.$$"
     local thread_num=3
     local tasks
