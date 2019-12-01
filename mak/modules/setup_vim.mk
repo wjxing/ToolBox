@@ -1,6 +1,6 @@
 TARGETS := build_vim install_vim update_vim_plugin
 SRC_DIR := $(TOOLBOX_SRC_DIR)/vim
-PLUGIN_DIR := $(TOOLBOX_SRC_DIR)/vimplugin
+PLUGIN_DIR := $(TOOLBOX_HOME)/vimplugin
 
 .PHONY: all $(TARGETS)
 

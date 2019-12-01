@@ -122,7 +122,8 @@ UPDATE_REPOS_DISABLE=false
 
 function _update_repos() {
     if [ "$UPDATE_REPOS_DISABLE" == "false" ]; then
-        cd $TOOLBOX_HOME && \
+        mkdir -p $TOOLBOX_HOME/tools
+        cd $TOOLBOX_HOME/tools && \
             repo init -u git@github.com:wjxing/repo-ToolBox.git --no-clone-bundle --depth=1 -m linux.xml &&
             repo sync -c --no-clone-bundle --no-tags &&
             repo start --all matser
@@ -134,19 +135,19 @@ all_tasks[${#all_tasks[@]}]="do_setup_vim"
 
 function do_setup_tools() {
     c_info "$FUNCNAME start"
-    make -C $TOOLBOX_HOME -f setup/mak/setup_tools.mk
+    make -C $TOOLBOX_TOOLS -f setup/mak/setup_tools.mk
     c_info "$FUNCNAME end"
 }
 
 function do_setup_vim() {
     c_info "$FUNCNAME start"
-    make -C $TOOLBOX_HOME -f setup/mak/setup_tools.mk setup_vim
+    make -C $TOOLBOX_TOOLS -f setup/mak/setup_tools.mk setup_vim
     c_info "$FUNCNAME end"
 }
 
 function _setup_tasks() {
     c_info "$FUNCNAME start"
-    TOOLBOX_HOME=$TOOLBOX_HOME source $TOOLBOX_HOME/setup/env.sh
+    TOOLBOX_HOME=$TOOLBOX_HOME source $TOOLBOX_TOOLS/setup/env.sh
     local tmp_fifo="tmp.fifo.$$"
     local thread_num=3
     local tasks
