@@ -143,7 +143,7 @@ function _update_repos() {
         mkdir -p $TOOLBOX_HOME/tools
         cd $TOOLBOX_HOME/tools && \
             (repo help manifest >/dev/null 2>&1 || \
-                repo init -u git@github.com:wjxing/repo-ToolBox.git --no-clone-bundle --depth=1 -m linux.xml) && \
+                repo init -u git@github.com:wjxing/repo-ToolBox.git --no-clone-bundle --depth=5 -m linux.xml) && \
             repo sync -c --no-clone-bundle --no-tags && \
             repo start --all matser
         if [ "xxx$UPDATE_REPOS_MOD" == "xxxonly" ]; then
