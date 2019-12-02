@@ -1,5 +1,5 @@
 TARGETS := install_crash check_dep
-SRC_DIR := $(TOOLBOX_SRC_DIR)/crash/crash
+SRC_DIR := $(TOOLBOX_SRC_DIR)/debug/crash/crash
 SRC_BIN := $(SRC_DIR)/crash
 INSTALL_BIN_DIR := $(TOOLBOX_INSTALL)/usr/bin
 INSTALL_BIN := $(INSTALL_BIN_DIR)/crash64
