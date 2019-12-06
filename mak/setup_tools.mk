@@ -1,4 +1,4 @@
-TARGETS := setup_bd setup_crash
+TARGETS := setup_bd setup_crash setup_link
 
 .PHONY: all setup_vim
 
