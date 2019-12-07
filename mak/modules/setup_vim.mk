@@ -26,7 +26,7 @@ build_vim:
 		--prefix=$(TOOLBOX_INSTALL)/usr
 
 install_vim: build_vim
-	$(q) $(MAKE) -C $(SRC_DIR) VIMRUNTIMEDIR=$(TOOLBOX_INSTALL)/usr/share/vim/vim80
+	$(q) $(MAKE) -C $(SRC_DIR) VIMRUNTIMEDIR=$(TOOLBOX_INSTALL)/usr/share/vim/vim81
 	$(q) $(MAKE) -C $(SRC_DIR) install
 
 update_vim_plugin: install_vim
