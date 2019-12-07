@@ -6,17 +6,16 @@ RCS_DIR := $(TOOLBOX_TOOLS)/config/rcs
 
 all:
 	$(q) mkdir -p $(HOME)/root/external
-	$(q) ln -s $(TOOLBOX_INSTALL)/usr $(HOME)/root/usr
-	$(q) ln -s $(TOOLBOX_INSTALL)/etc $(HOME)/root/etc
-	$(q) ln -s $(TOOLBOX_HOME)/vimplugin $(HOME)/.vim
-	$(q) ln -s $(TOOLBOX_SRC_DIR)/zsh-plugin/oh-my-zsh $(HOME)/.oh-my-zsh
-	$(q) ln -s $(TOOLBOX_SRC_DIR)/zsh-plugin/zsh-autosuggestions $(TOOLBOX_SRC_DIR)/zsh-plugin/oh-my-zsh/plugins/zsh-autosuggestions
-	$(q) $(TOOLBOX_SRC_DIR)/zsh-plugin/autojump/install.py --destdir $(TOOLBOX_INSTALL)
-	$(q) ln -s $(RCS_DIR)/_bashrc $(HOME)/.bashrc
-	$(q) ln -s $(RCS_DIR)/_zshrc $(HOME)/.zshrc
-	$(q) ln -s $(RCS_DIR)/_shrc $(HOME)/.shrc
-	$(q) ln -s $(RCS_DIR)/_gitconfig $(HOME)/.gitconfig
-	$(q) ln -s $(RCS_DIR)/_inputrc $(HOME)/.inputrc
-	$(q) ln -s $(RCS_DIR)/_p10k.zsh $(HOME)/.p10k.zsh
-	$(q) ln -s $(RCS_DIR)/_screenrc $(HOME)/.screenrc
-	$(q) ln -s $(RCS_DIR)/_tmux.conf $(HOME)/.tmux.conf
+	$(q) cp -rf $(TOOLBOX_INSTALL)/* $(HOME)/root/
+	$(q) rm -rf $(HOME)/.vim && ln -s $(TOOLBOX_HOME)/vimplugin $(HOME)/.vim
+	$(q) rm -rf $(HOME)/.oh-my-zsh && ln -s $(TOOLBOX_SRC_DIR)/zsh-plugin/oh-my-zsh $(HOME)/.oh-my-zsh
+	$(q) rm -rf $(TOOLBOX_SRC_DIR)/zsh-plugin/oh-my-zsh/plugins/zsh-autosuggestions && ln -s $(TOOLBOX_SRC_DIR)/zsh-plugin/zsh-autosuggestions $(TOOLBOX_SRC_DIR)/zsh-plugin/oh-my-zsh/plugins/zsh-autosuggestions
+	$(q) rm -rf $(HOME)/.bashrc && ln -s $(RCS_DIR)/_bashrc $(HOME)/.bashrc
+	$(q) rm -rf $(HOME)/.zshrc && ln -s $(RCS_DIR)/_zshrc $(HOME)/.zshrc
+	$(q) rm -rf $(HOME)/.shrc &&  ln -s $(RCS_DIR)/_shrc $(HOME)/.shrc
+	$(q) rm -rf $(HOME)/.gitconfig && ln -s $(RCS_DIR)/_gitconfig $(HOME)/.gitconfig
+	$(q) rm -rf $(HOME)/.inputrc && ln -s $(RCS_DIR)/_inputrc $(HOME)/.inputrc
+	$(q) rm -rf $(HOME)/.p10k.zsh && ln -s $(RCS_DIR)/_p10k.zsh $(HOME)/.p10k.zsh
+	$(q) rm -rf $(HOME)/.screenrc && ln -s $(RCS_DIR)/_screenrc $(HOME)/.screenrc
+	$(q) rm -rf $(HOME)/.tmux.conf && ln -s $(RCS_DIR)/_tmux.conf $(HOME)/.tmux.conf
+	$(q) cd $(TOOLBOX_SRC_DIR)/zsh-plugin/autojump/ && ./install.py --destdir $(TOOLBOX_INSTALL)
