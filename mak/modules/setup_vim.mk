@@ -10,14 +10,10 @@ build_vim:
 	$(q) cd $(SRC_DIR) && $(SRC_DIR)/configure \
 		--enable-multibyte \
 		--enable-perlinterp=dynamic \
-		--enable-rubyinterp=dynamic \
-		--with-ruby-command=/usr/bin/ruby \
 		--enable-pythoninterp=dynamic \
 		--with-python-config-dir=/usr/lib/python2.7/config-x86_64-linux-gnu \
 		--enable-python3interp \
 		--with-python3-config-dir=/usr/lib/python3.5/config-3.5m-x86_64-linux-gnu \
-		--enable-luainterp \
-		--with-luajit \
 		--enable-cscope \
 		--enable-gui=auto \
 		--with-features=huge \
@@ -33,7 +29,7 @@ install_vim: build_vim
 	$(q) $(MAKE) -C $(SRC_DIR) VIMRUNTIMEDIR=$(TOOLBOX_INSTALL)/usr/share/vim/vim80
 	$(q) $(MAKE) -C $(SRC_DIR) install
 
-update_vim_plugin:
+update_vim_plugin: install_vim
 	$(q) mkdir -p $(PLUGIN_DIR)
 	$(q) cd $(PLUGIN_DIR) && \
 		(repo help manifest >/dev/null 2>&1 || \
