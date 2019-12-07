@@ -55,7 +55,6 @@ function c_error() {
 }
 
 must_bins[${#must_bins[@]}]="git"
-must_bins[${#must_bins[@]}]="gtags"
 must_bins[${#must_bins[@]}]="make"
 must_bins[${#must_bins[@]}]="python"
 must_bins[${#must_bins[@]}]="repo"

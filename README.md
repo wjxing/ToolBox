@@ -1,5 +1,20 @@
 ## ToolBox
 
+### Prepare:
+```bash
+$ sudo apt-get install git make zsh tmux repo build-essential libncurses5-dev zlib1g-dev python libperl-dev libpython-dev libpython3-dev libx11-dev libxt-dev
+```
+https://ftp.gnu.org/pub/gnu/global/
+```bash
+$ ./configure --prefix=$HOME/root/usr
+$ make
+$ make install
+```
+
+Copy repo
+
+Copy .ssh
+
 ### Cmd:
 * Clear environment setup, use ~/Workspace/ToolBox as default dir
 ```bash
