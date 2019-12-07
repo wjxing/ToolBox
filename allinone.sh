@@ -53,11 +53,20 @@ function c_error() {
     STR="$@"
     cprint -r "`echo $STR`"
 }
+
 must_bins[${#must_bins[@]}]="git"
 must_bins[${#must_bins[@]}]="repo"
 must_bins[${#must_bins[@]}]="zsh"
 must_bins[${#must_bins[@]}]="tmux"
 must_bins[${#must_bins[@]}]="make"
+
+UPDATE_REPOS_MOD=
+UPDATE_REPOS_GRP=
+
+sub_tasks=
+
+all_tasks[${#all_tasks[@]}]="do_setup_tools"
+all_tasks[${#all_tasks[@]}]="do_setup_vim"
 
 function _check_env() {
     local miss_bins=
@@ -81,10 +90,8 @@ function _check_env() {
     fi
 }
 
-sub_tasks=
-
 function _check_param() {
-    local ARGS=$(getopt -o t::u:v --long setup_tools,update_repos,setup_vim -- "$@")
+    local ARGS=$(getopt -o g:t::u:v --long update_group,setup_tools,update_repos,setup_vim -- "$@")
     local setup_tools
     if [ $? != 0 ]; then
         c_error "$FUNCNAME getopt fail"
@@ -94,6 +101,11 @@ function _check_param() {
     while true
     do
         case "$1" in
+            -g|--update_group)
+                c_info "Update repos group"
+                UPDATE_REPOS_GRP=$2
+                shift 2
+                ;;
             -t|--setup_tools)
                 c_info "Setup tools"
                 case "$2" in
@@ -136,14 +148,15 @@ function _check_param() {
     fi
 }
 
-UPDATE_REPOS_MOD=
-
 function _update_repos() {
     if [ "xxx$UPDATE_REPOS_MOD" != "xxxdisable" ]; then
+        local group="all"
+        if [ "xxx" != "xxx$UPDATE_REPOS_GRP" ]; then
+            group="$group,-notdefault,$UPDATE_REPOS_GRP"
+        fi
         mkdir -p $TOOLBOX_HOME/tools
         cd $TOOLBOX_HOME/tools && \
-            (repo help manifest >/dev/null 2>&1 || \
-                repo init -u git@github.com:wjxing/repo-ToolBox.git --no-clone-bundle --depth=5 -m linux.xml) && \
+            repo init -u git@github.com:wjxing/repo-ToolBox.git -g $group --no-clone-bundle --depth=5 -m linux.xml && \
             repo sync -c --no-clone-bundle --no-tags && \
             repo start --all matser
         if [ "xxx$UPDATE_REPOS_MOD" == "xxxonly" ]; then
@@ -152,9 +165,6 @@ function _update_repos() {
         fi
     fi
 }
-
-all_tasks[${#all_tasks[@]}]="do_setup_tools"
-all_tasks[${#all_tasks[@]}]="do_setup_vim"
 
 function do_setup_tools() {
     c_info "$FUNCNAME start"
