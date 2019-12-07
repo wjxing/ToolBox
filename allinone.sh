@@ -55,10 +55,11 @@ function c_error() {
 }
 
 must_bins[${#must_bins[@]}]="git"
-must_bins[${#must_bins[@]}]="repo"
-must_bins[${#must_bins[@]}]="zsh"
-must_bins[${#must_bins[@]}]="tmux"
 must_bins[${#must_bins[@]}]="make"
+must_bins[${#must_bins[@]}]="python"
+must_bins[${#must_bins[@]}]="repo"
+must_bins[${#must_bins[@]}]="tmux"
+must_bins[${#must_bins[@]}]="zsh"
 
 UPDATE_REPOS_MOD=
 UPDATE_REPOS_GRP=

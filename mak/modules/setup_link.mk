@@ -6,13 +6,12 @@ RCS_DIR := $(TOOLBOX_TOOLS)/config/rcs
 
 all:
 	$(q) mkdir -p $(HOME)/root/external
-	$(q) ln -s $(RCS_DIR)/_rootrc $(HOME)/root/my_sh_init.sh
 	$(q) ln -s $(TOOLBOX_INSTALL)/usr $(HOME)/root/usr
 	$(q) ln -s $(TOOLBOX_INSTALL)/etc $(HOME)/root/etc
 	$(q) ln -s $(TOOLBOX_HOME)/vimplugin $(HOME)/.vim
 	$(q) ln -s $(TOOLBOX_SRC_DIR)/zsh-plugin/oh-my-zsh $(HOME)/.oh-my-zsh
 	$(q) ln -s $(TOOLBOX_SRC_DIR)/zsh-plugin/zsh-autosuggestions $(TOOLBOX_SRC_DIR)/zsh-plugin/oh-my-zsh/plugins/zsh-autosuggestions
-	$(q) ln -s $(TOOLBOX_SRC_DIR)/zsh-plugin/autojump $(TOOLBOX_SRC_DIR)/zsh-plugin/oh-my-zsh/plugins/autojump/autojump
+	$(q) $(TOOLBOX_SRC_DIR)/zsh-plugin/autojump/install.py --destdir $(TOOLBOX_INSTALL)
 	$(q) ln -s $(RCS_DIR)/_bashrc $(HOME)/.bashrc
 	$(q) ln -s $(RCS_DIR)/_zshrc $(HOME)/.zshrc
 	$(q) ln -s $(RCS_DIR)/_shrc $(HOME)/.shrc
