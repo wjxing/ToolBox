@@ -159,7 +159,7 @@ function _update_repos() {
         cd $TOOLBOX_HOME/tools && \
             repo init -u git@github.com:wjxing/repo-ToolBox.git -g $group --no-clone-bundle --depth=5 -m linux.xml && \
             repo sync -c --no-clone-bundle --no-tags && \
-            repo start --all matser
+            repo start --all master
         if [ "xxx$UPDATE_REPOS_MOD" == "xxxonly" ]; then
             c_info "Update repos done"
             exit
