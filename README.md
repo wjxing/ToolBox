@@ -2,7 +2,7 @@
 
 ### Prepare:
 ```bash
-$ sudo apt-get install git make zsh tmux repo build-essential libncurses5-dev zlib1g-dev python libperl-dev libpython-dev libpython3-dev libx11-dev libxt-dev
+$ sudo apt-get install git make zsh tmux repo build-essential libncurses5-dev zlib1g-dev python libperl-dev libpython-dev libpython3-dev libx11-dev libxt-dev gawk
 ```
 https://ftp.gnu.org/pub/gnu/global/
 ```bash

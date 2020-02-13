@@ -38,4 +38,4 @@ update_vim_plugin: install_vim
 		repo start --all master
 
 install_vim_plugin: update_vim_plugin
-	#$(q) ln -s $(PLUGIN_DIR) $(HOME)/.vim
+	$(q) ln -s $(PLUGIN_DIR) $(HOME)/.vim

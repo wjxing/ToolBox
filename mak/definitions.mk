@@ -5,5 +5,6 @@ $(q) cp $< $@
 endef
 
 define link-file-to-target
-$(q) [ ! -f $(1) || -L $(1) ] && rm $(1) && ln -s $(2) $(1)
+$(q) [[ ! -f $(2) || -L $(2) ]] && rm -rf $(2) && ln -s $(1) $(2)
 endef
+
