@@ -17,43 +17,30 @@ Copy .ssh
 
 ### Cmd:
 * Clear environment setup, use ~/Workspace/ToolBox as default dir
+* All setup
 ```bash
-$ bash -c "$(curl -fsSL https://raw.githubusercontent.com/wjxing/ToolBox/master/allinone.sh)"
+$ repo init -u git@github.com:wjxing/repo-ToolBox.git -g all --no-clone-bundle -m linux.xml
+$ repo sync -c --no-clone-bundle --no-tags
+$ repo start --all master
+
+$ cd setup
+$ ./allinone.sh
 ```
 
-* Custom default dir
+* Help, print support task
 ```bash
-$ TOOLBOX_HOME=/path/to/set/dir bash -c "$(curl -fsSL https://raw.githubusercontent.com/wjxing/ToolBox/master/allinone.sh)"
-```
-
-* Module setup
-
-Not update repos, only setup all tools
-```bash
-$ cd tools/setup
-$ ./allinone.sh -u disable
-```
-
-Not update repos, only setup special tools
-```bash
-$ cd tools/setup
-$ ./allinone.sh -u disable -tsetup_bd -tsetup_crash ...
-```
-
-Only update repos
-```bash
-$ cd tools/setup
-$ ./allinone.sh -u only
+$ cd setup
+$ ./allinone.sh -h
 ```
 
 ### Dir:
-#### $TOOLBOX_HOME/tools/bin
+#### $TOOLBOX_HOME/bin
 Origin bins
 
-#### $TOOLBOX_HOME/tools/setup
+#### $TOOLBOX_HOME/setup
 Setup scripts
 
-#### $TOOLBOX_HOME/tools/source
+#### $TOOLBOX_HOME/source
 Third party tools
 
 #### $TOOLBOX_HOME/vimplugin
