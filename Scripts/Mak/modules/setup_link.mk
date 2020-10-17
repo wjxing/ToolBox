@@ -8,7 +8,7 @@ all:
 	$(q) echo "Not support $@ target"
 
 install:
-	$(q) mkdir -p $(HOME)/root/external
+	$(q) mkdir -p $(TOOLBOX_HOME)/root/external
 	$(q) rm -rf $(HOME)/.vim && ln -s $(TOOLBOX_HOME)/vimplugin $(HOME)/.vim
 	$(q) rm -rf $(HOME)/.oh-my-zsh && ln -s $(TOOLBOX_SRC_DIR)/zsh-plugin/oh-my-zsh $(HOME)/.oh-my-zsh
 	$(q) rm -rf $(TOOLBOX_SRC_DIR)/zsh-plugin/oh-my-zsh/plugins/zsh-autosuggestions && ln -s $(TOOLBOX_SRC_DIR)/zsh-plugin/zsh-autosuggestions $(TOOLBOX_SRC_DIR)/zsh-plugin/oh-my-zsh/plugins/zsh-autosuggestions

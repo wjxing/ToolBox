@@ -5,7 +5,7 @@ $(q) cp $< $@
 endef
 
 define link-file-to-target
-$(q) [[ ! -f $(2) || -L $(2) ]] && rm -rf $(2) && ln -s $(1) $(2)
+[[ ! -f $(2) || -L $(2) ]] && rm -rf $(2) && ln -s $(1) $(2)
 endef
 
 include $(TOOLBOX_HOME)/setup/Scripts/Mak/env.mk
