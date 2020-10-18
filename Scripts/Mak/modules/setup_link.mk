@@ -15,6 +15,7 @@ install:
 	$(q) rm -rf $(TOOLBOX_SRC_DIR)/zsh-plugin/oh-my-zsh/themes/powerlevel10k && ln -s $(TOOLBOX_SRC_DIR)/zsh-theme/powerlevel10k $(TOOLBOX_SRC_DIR)/zsh-plugin/oh-my-zsh/themes/powerlevel10k
 	$(q) $(call link-file-to-target,$(RCS_DIR)/_bashrc,$(HOME)/.bashrc)
 	$(q) $(call link-file-to-target,$(RCS_DIR)/_zshrc,$(HOME)/.zshrc)
+	$(q) sed -s "s@%TOOLBOX_HOME%@$(TOOLBOX_HOME)@g" $(RCS_DIR)/_shrc.in > $(RCS_DIR)/_shrc
 	$(q) $(call link-file-to-target,$(RCS_DIR)/_shrc,$(HOME)/.shrc)
 	$(q) $(call link-file-to-target,$(RCS_DIR)/_gitconfig,$(HOME)/.gitconfig)
 	$(q) $(call link-file-to-target,$(RCS_DIR)/_gdbinit,$(HOME)/.gdbinit)
