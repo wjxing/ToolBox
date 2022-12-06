@@ -2,7 +2,7 @@ from PluginManager import Model_ToolObj
 import Tools
 from Tools import Const
 
-class Setup_bd(Model_ToolObj):
+class Setup_vim(Model_ToolObj):
     def __init__(self):
         super().__init__("setup_vim")
 
